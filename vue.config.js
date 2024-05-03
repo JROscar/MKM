@@ -13,7 +13,7 @@ const name = defaultSettings.title || 'vue Admin Template' // page title
 // For example, Mac: sudo npm run
 // You can change the port by the following methods:
 // port = 9528 npm run dev OR npm run dev --port = 9528
-const port = process.env.port || process.env.npm_config_port || 9528 // dev port
+const port = process.env.port || process.env.npm_config_port || 8090 // dev port
 
 // All configuration item explanations can be find in https://cli.vuejs.org/config/
 module.exports = {
@@ -30,8 +30,8 @@ module.exports = {
   lintOnSave: process.env.NODE_ENV === 'development',
   productionSourceMap: false,
   devServer: {
-    port: 8090,
-    host:"0.0.0.0",
+    port: port,
+    host: '0.0.0.0',
     open: true,
     overlay: {
       warnings: false,
@@ -39,16 +39,16 @@ module.exports = {
     },
     https: false,
     proxy: {
-      "/baseservice": {
-        target: "http://localhost:8090",
+      '/baseservice': {
+        target: 'http://172.20.0.218:8090', // localhost
         changeOrigin: true,
         ws: true, // websocket
-         pathRewrite: {
-           "^/baseservice": "/api",
-         },
-      },
-    },
-    //before: require('./mock/mock-server.js')
+        pathRewrite: {
+          '^/baseservice': '/api'
+        }
+      }
+    }
+    // before: require('./mock/mock-server.js')
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
