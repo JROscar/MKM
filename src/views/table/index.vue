@@ -1,5 +1,7 @@
 <template>
+
   <div class="app-container">
+    <el-button type="primary" @click="exportExcel">exportExcel</el-button>
     <el-table
       v-loading="listLoading"
       :data="list"
@@ -28,12 +30,24 @@
           {{ scope.row.pageviews }}
         </template>
       </el-table-column>
-      <el-table-column class-name="status-col" label="Status" width="110" align="center">
+      <el-table-column
+        class-name="status-col"
+        label="Status"
+        width="110"
+        align="center"
+      >
         <template slot-scope="scope">
-          <el-tag :type="scope.row.status | statusFilter">{{ scope.row.status }}</el-tag>
+          <el-tag :type="scope.row.status | statusFilter">{{
+            scope.row.status
+          }}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column align="center" prop="created_at" label="Display_time" width="200">
+      <el-table-column
+        align="center"
+        prop="created_at"
+        label="Display_time"
+        width="200"
+      >
         <template slot-scope="scope">
           <i class="el-icon-time" />
           <span>{{ scope.row.displayTime }}</span>
@@ -45,6 +59,7 @@
 
 <script>
 import { getList } from '@/api/table'
+import * as XLSX from 'xlsx/xlsx.mjs'
 
 export default {
   filters: {
@@ -69,20 +84,21 @@ export default {
   methods: {
     fetchData() {
       this.listLoading = true
-      getList().then(response => {
+      getList().then((response) => {
         this.list = response.data
         this.listLoading = false
       })
     },
-    formattedDisplayTime(changeDate) {
-      // 將 ISO 8601 格式的字串轉換為 JavaScript Date 物件
-      console.log("date---"+changeDate)
-      const dateObj = new Date(changeDate);
-      console.log("date---"+dateObj)
-      // 使用 JavaScript Date 物件的方法來取得需要的格式
-      //const formattedDate = `${dateObj.getFullYear()}-${('0' + (dateObj.getMonth() + 1)).slice(-2)}-${('0' + dateObj.getDate()).slice(-2)} ${('0' + dateObj.getHours()).slice(-2)}:${('0' + dateObj.getMinutes()).slice(-2)}:${('0' + dateObj.getSeconds()).slice(-2)}`;
-
-      return dateObj;
+    exportExcel() {
+      // 导出方法
+      // const handleExport = () => {
+      /* 创建 worksheet tableData1.value 是表格数据 */
+      const ws = XLSX.utils.json_to_sheet(this.list)
+      /* 创建 workbook 导出 */
+      const wb = XLSX.utils.book_new()
+      XLSX.utils.book_append_sheet(wb, ws, 'Sheet1')
+      XLSX.writeFile(wb, '异常数据详情.xlsx')
+      // }
     }
   }
 }
