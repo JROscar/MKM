@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import mkmRouter from '@/router/MKM/mkm'
-
+import b2bRouter from '@/router/B2B/b2b'
 Vue.use(Router)
 
 /* Layout */
@@ -32,8 +32,6 @@ import Layout from '@/layout'
  * a base page that does not have permission requirements
  * all roles can be accessed
  */
-
-
 
 export const constantRoutes = [
   {
@@ -93,7 +91,7 @@ export const constantRoutes = [
         meta: { title: 'Form', icon: 'form' }
       }
     ]
-  },
+  }
 ]
 
 /**
@@ -169,11 +167,12 @@ export const asyncRoutes = [
       }
     ]
   },
+  mkmRouter,
+  b2bRouter,
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true },
 
-  mkmRouter
 ]
 
 const createRouter = () => new Router({

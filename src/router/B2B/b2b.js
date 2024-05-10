@@ -1,6 +1,6 @@
 /** When your routing table is too long, you can split it into small modules **/
 /**
- * MKM静态路由
+ * b2b静态路由
  * */
 // import i18n from '@/lang'
 
@@ -33,33 +33,49 @@ import Layout from '@/layout'
 // }
 
 // 钣金系统-E-Kanban-静态路由组件
-const mkmRouter = {
+const b2bRouter = {
   // E-Kanban菜单
-  path: '/MKM',
+  path: '/B2B', // 尽量不要和下面的name重复
   component: Layout,
   redirect: 'noRedirect',
-  name: 'E-Kanban',
+  name: 'B2B-JSD DELL',
   meta: { // E-Kanban菜单
-    title: 'E-Kanban', // 'MKM', // E-Kanban一级菜单, // 'components',
-    icon: 'el-icon-setting'
+    title: 'B2B-JSD DELL', // 'MKM', // E-Kanban一级菜单, // 'components',
+    icon: 'el-icon-guide'
   },
   children: [{
-    path: 'SMTTimeInfo', // E-Kanban菜单-SMT叫料时间信息//
-    component: () => import('@/views/MKM/SMTTimeInfo'),
-    name: 'SMTTimeInfo',
+    path: 'EDI850IBOrderReceived',
+    component: () => import('@/views/B2B/EDI850IBOrderReceived.vue'),
+    name: 'EDI850IBOrderReceived',
     meta: {
-      title: 'SMT Time Infromation' // E-Kanban菜单-SMT叫料时间信息 //
+      title: 'EDI 850 IB Order Received'
     }
   },
   {
-    path: 'ManualCallMaterial', // E-Kanban菜单-SMT叫料时间信息//
-    component: () => import('@/views/MKM/ManualCallMaterial.vue'),
-    name: 'ManualCallMaterial',
+    path: 'IBGCF',
+    component: () => import('@/views/B2B/IBGCF.vue'),
+    name: 'IBGCF',
     meta: {
-      title: 'Manual Call Material'// E-Kanban菜单-SMT叫料时间信息 //
+      title: 'IB GCF'
+    }
+  },
+  {
+    path: 'IBLable',
+    component: () => import('@/views/B2B/IBLabel.vue'),
+    name: 'IBLable',
+    meta: {
+      title: 'IB Lable'
+    }
+  },
+  {
+    path: 'IBMFG',
+    component: () => import('@/views/B2B/IBMFG.vue'),
+    name: 'IBMFG',
+    meta: {
+      title: 'IB MFG'
     }
   }
   ]
 }
 
-export default mkmRouter
+export default b2bRouter
